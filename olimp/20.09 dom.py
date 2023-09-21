@@ -1,24 +1,43 @@
 x = int(input('длина новой стены 1'))
 y = int(input('длина новой стены 2'))
 l = int(input('длина уцелевшей стены'))
-c1 = int(input('цена ремонта погонного метра уцелевшей стены'))
-c2 = int(input('цена разбора погонного метра уцелевшей стены'))
-c3 = int(input('цена строительства погонного метра из материала уцелевшей стены'))
-c4 = int(input('цена строительства погонного метра из нового материала'))
-c5 = int(input('цена погонного метра нового материала'))
-c6 = int(input('цена вывоза погонного метра на свалку'))
-
-if l > x:
-    cena = ((l-x)*c2) + ((l-x)*c3) + ((l-(l-x))*c1) + (x*c4) + (x*c5) + (y*c5) + (y*c4) + ((y-(l-x))*c4) + ((y-(l-x))*c5)
-if l > y:
-    cena = ((l-y)*c2) + ((l-y)*c3) + ((l-(l-y))*c1) + (y*c4) + (y*c5) + (x*c5) + (x*c4) + ((x-(l-y))*c4) + ((x-(l-y))*c5)
-if l < x:
-    cena = (l*c1) + (x*c4) + (x*c5) + ((x-l)*c4) + ((x-l)*c5) + (2*((y*c4) + (y*c5)))
-if l < y:
-    cena = (l*c1) + (y*c4) + (y*c5) + ((y-l)*c4) + ((y-l)*c5) + (2*((x*c4) + (x*c5)))
-if l == x:
-    cena = (l*c1) + (x*c4) + (x*c5) + (2*((y*c5) + (y*c4)))
-if l == y:
-    cena = (l*c1) + (y*c4) + (y*c5) + (2*((x*c5) + (x*c4)))
+c1 = int(input('цена ремонта стены'))
+c2 = int(input('цена разбора стены'))
+c3 = int(input('цена стр из материала уцелевшей стены'))
+c4 = int(input('цена стр из нового материала'))
+c5 = int(input('цена нового материала'))
+c6 = int(input('цена вывоза на свалку'))
+p = 2 * (x + y)
+newbb = c4 + c5
+cena = 0
+if l > max(x, y):
+    cena = (l - max(x, y)) * c2
+    ost = l - max(x, y)
+    if (c2 + c6 + newbb > c1) and (c2 + c3 > c1):
+        cena = cena + max(x, y)*c1
+    elif (c2 + c6 + newbb > c2 + c3):
+        cena = cena + max(x, y) * (c2 + c3)
+    else:
+        cena = cena + max(x, y) * (newbb + c6 + c2)
+    p = p - max(x, y)
+    if c3 < newbb + c6:
+        if ost <= p:
+            p = p - ost
+            cena = cena + ost * c3
+            cena = cena + p * newbb
+        else:
+            cena = cena + p * c3 + (ost - p) * c6
+            p = 0
+    else:
+        cena = cena + p * newbb + ost * c6
+        p = 0
+elif l <= max(x, y):
+    if (c2 + c3 > c1) and (c2 + c6 + newbb > c1):
+        cena = cena + l * c1
+    elif (c2 + c6 + newbb > c2 + c3):
+        cena = cena + l * (c2 + c3)
+    else:
+        cena = cena + l * (newbb + c6 + c2)
+    p = p - l
+    cena = p * newbb + cena
 print(cena)
-
