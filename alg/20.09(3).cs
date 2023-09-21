@@ -5,7 +5,7 @@ class class1
 {
       static void Main()
     {
-        int n, max_sub, cur_sub = 1, number, prv_number;  //кол-во элементов, max длина, длина текущей послндовательности, текущее число, предыдущее число
+        int n, max_sub, cur_sub = 1, number, prv_number;
         n = Convert.ToInt32(Console.ReadLine());
         max_sub = 1;
         prv_number = Convert.ToInt32(Console.ReadLine());
