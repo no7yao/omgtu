@@ -4,36 +4,29 @@ class class1
 {
     static void Main()
     {
-        int amount, numb, prv_number, diff, switch1 = 1;
-        amount = Convert.ToInt32(Console.ReadLine());
+        int n, min_sub, cur_sub = 1, number, prv_number; 
+        n = Convert.ToInt32(Console.ReadLine());
+        min_sub = n;
         prv_number = Convert.ToInt32(Console.ReadLine());
-        numb = Convert.ToInt32(Console.ReadLine());
-        diff = prv_number - numb;
-        if (diff > 0)
+        for(int i = 0; i < n - 1; i++)
         {
-            for (int i = 0; i < amount - 2; i++)
+            number = Convert.ToInt32(Console.ReadLine());
+            if (number == prv_number)
             {
-                prv_number = numb;
-                numb = Convert.ToInt32(Console.ReadLine());
-                if ((prv_number - numb) != diff)
-                {
-                    switch1 = 0;
-                }
+                cur_sub++;
+
             }
+            else
+            {
+                if((min_sub > cur_sub) & (cur_sub > 1))
+                {
+                    min_sub = cur_sub;
+
+                }
+                cur_sub = 1;
+            }
+            prv_number = number;
         }
-        else
-        {
-            switch1 = 0;
-        }
-        if (switch1 == 1)
-        {
-            Console.WriteLine("Последовательность является равномено убывающей");
-        }
-        else
-        {
-            Console.WriteLine("Последовательность не является равномено убывающей");
-        }
+        Console.WriteLine(min_sub);
     }
 }
-
-
