@@ -1,7 +1,7 @@
 using System;
 class HelloWorld {
   static void Main() {
-    int n, c, tri, pat, sem, cnt1;
+    int n, c, cnt1;
     cnt1 = 0;
     n = Convert.ToInt32(Console.ReadLine());
     for (int i=0; i<n; i++)
