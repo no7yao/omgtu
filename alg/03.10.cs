@@ -2,13 +2,10 @@ using System;
 
 class HelloWorld {
   static void Main() {
-    int N,a,b,max,max1,s0=0,s1=0,s2=0,sum0=0,sum1=0,sum2=0,sum01=0,sum02=0,sum03=0,sum11=0,sum12=0,sum13=0,sum21=0,sum22=0,sum23=0;
-    Console.Write("Запрашиваю кол-во строк: ");
-    N=Convert.ToInt32(Console.ReadLine());
+    int n,a,b,max,max1,s0=0,s1=0,s2=0,sum0=0,sum1=0,sum2=0,sum01=0,sum02=0,sum03=0,sum11=0,sum12=0,sum13=0,sum21=0,sum22=0,sum23=0;
+    n=Convert.ToInt32(Console.ReadLine());
     for (int i=1; i<N;i++){
-    Console.Write("Введите число А: ");
     a=Convert.ToInt32(Console.ReadLine());
-    Console.Write("Введите число Б: ");
     b=Convert.ToInt32(Console.ReadLine());
     
     if ((sum0 + a) % 3 == 0) 
@@ -29,13 +26,6 @@ class HelloWorld {
     else sum03 = sum2 +a;
     else if (((sum2 + b) % 3 == 0) && (sum2 + b > sum0)) sum03 = sum2 +b;
 
-    
-    
-    
-    
-    
-    
-    
     if ((sum1 + a) % 3 == 1) 
     if ((sum1 +b) % 3 == 1) sum11 = Math.Max(sum1 +b, sum1 +a);
     else sum11 = sum1 +a;
