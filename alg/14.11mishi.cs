@@ -8,19 +8,18 @@ class wwww
             int sum = -1, p = 0;
             bool flag = false;
             Console.WriteLine("Укажите кол-во серых мышей");
-            int n_s = Convert.ToInt32(Console.ReadLine());
+            int n_ser = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Укажите кол-во белых мышей");
-            int n_b = Convert.ToInt32(Console.ReadLine());
+            int n_bel = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Через сколько съедается мышь");
             int k = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Укажите сколько должно остаться серых");
-            int o_s = Convert.ToInt32(Console.ReadLine());
+            int o_ser = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Укажите сколько должно остаться белых");
-            int o_b = Convert.ToInt32(Console.ReadLine());
-            int m_s = n_s - o_s;
-            int[] mish = new int[n_s + n_b];
-            for (int i = 0; i < n_s + n_b; i++) mish[i] = i;
-            for (int i = 0; i < (n_s + n_b) - (o_b + o_s); i++)
+            int o_bel = Convert.ToInt32(Console.ReadLine());
+            int m_s = n_ser - o_ser;
+            int[] mish = new int[n_ser + n_bel];
+            for (int i = 0; i < n_ser + n_bel- (o_bel + o_ser); i++)
             {
                 while (!((sum == k) && (mish[p] != -1)))
                 {
@@ -31,10 +30,10 @@ class wwww
             }
             
                 Console.WriteLine();
-            for (int i = 0; i < n_s + n_b; i++)
+            for (int i = 0; i < n_ser + n_bel; i++)
             {
 
-                if ((n_s < o_s) || (n_b < o_b))
+                if ((n_ser < o_ser) || (n_bel < o_bel))
                 {
                     flag = true; break;
                 }
@@ -60,9 +59,9 @@ class wwww
                 }
                 else
                 {
-                    if (o_s != 0)
+                    if (o_ser != 0)
                     {
-                        o_s += -1;
+                        o_ser += -1;
                         Console.WriteLine($"Расположим серую(ж) мышь на {i + 1} месте");
 
                     }
