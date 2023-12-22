@@ -5,10 +5,12 @@ class www
 {
     static void Main()
     {
+        Console.Write("Введите кол-во множеств: ");
         int n = int.Parse(Console.ReadLine());
         int[][] nums = new int[n][];
         for (int i = 0; i < n; i++)
         {
+            Console.Write($"Введите элементы множества {i+1} через пробел: ");
             string[] s = Console.ReadLine().Split();
             int[] sn = s.Select(x => int.Parse(x)).ToArray();
             nums[i] = sn;
@@ -20,7 +22,7 @@ class www
         foreach (int[] i in nums)
         { foreach (int j in i) { if (!obedin.Contains(j)) { Array.Resize(ref obedin, obedin.Length + 1); obedin[k++] = j; } } }
 
-        foreach (int i in obedin) { Console.Write(i + " "); }
+        foreach (int i in obedin) { Console.Write(i); }
         Console.WriteLine();
 
         int[] ints = new int[0];
@@ -29,7 +31,7 @@ class www
         k = 0;
         foreach (int i in ints) { if ((ints.Count(x => x == i) == n) & (!peresech.Contains(i))) { Array.Resize(ref peresech, peresech.Length + 1); peresech[k++] = i; } }
 
-        foreach (int i in peresech) { Console.Write(i + " "); }
+        foreach (int i in peresech) { Console.Write(i); }
         Console.WriteLine();
         int dop = 0;
         for (int i = 0; i < nums.Length - 1; i++)
@@ -57,7 +59,7 @@ class www
         {
             foreach (int j in i)
             {
-                Console.Write(j + " ");
+                Console.Write(j);
             }
             Console.WriteLine();
         }
