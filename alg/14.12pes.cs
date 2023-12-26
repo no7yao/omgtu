@@ -1,69 +1,75 @@
 using System;
-using System.Collections.Generic;
-class dog
-{
-    private int year;
-    private string poroda;
-    private string color;
-    private string pol;
-    private string name;
-    public int Year { get => year; set => year = value; }
-    public string Poroda { get => poroda; set => poroda = value; }
-    public string Color { get => color; set => color = value; }
-    public string Pol { get => pol; set => pol = value; }
-    public string Name { get => name; set => name = value; }
-}
-class program
+class Program
 {
     static void Main()
     {
-        List<dog> dogs = vvod();
-        smenacolor(dogs);
-        vivod(dogs);
-    }
-    public static List<dog> vvod()
-    {
-        List<dog> dogs = new List<dog>();
         Console.Write("Введите количество собак: ");
         int n = int.Parse(Console.ReadLine());
+        Dog[] dogs = new Dog[n];
         for (int i = 0; i < n; i++)
         {
-            dog dog = new dog();
-            Console.Write("Год рождения собаки: ");
-            dog.Year = int.Parse(Console.ReadLine());
-            Console.Write("Порода собаки: ");
-            dog.Poroda = Console.ReadLine();
-            Console.Write("Окраска собаки: ");
-            dog.Color = Console.ReadLine();
-            Console.Write("Пол собаки: ");
-            dog.Pol = Console.ReadLine();
-            Console.Write("Имя собаки: ");
-            dog.Name = Console.ReadLine();
-            dogs.Add(dog);
+            Console.WriteLine($"Введите информацию о собаке {i + 1}:");
+            Console.Write("Год рождения: ");
+            int Year = int.Parse(Console.ReadLine());
+            Console.Write("Порода: ");
+            string breed = Console.ReadLine();
+            Console.Write("Окрас: ");
+            string color = Console.ReadLine();
+            Console.Write("Пол: ");
+            string gender = Console.ReadLine();
+            Console.Write("Кличка: ");
+            string name = Console.ReadLine();
+            dogs[i] = new Dog(Year, breed, color, gender, name);
         }
-        return dogs;
-    }
-    public static void smenacolor(List<dog> dogs)
-    {
-        Console.Write("Введите породу для выборки: ");
-        string poroda1 = Console.ReadLine();
-        Console.Write("Введите год рождения для выборки: ");
-        int year1 = int.Parse(Console.ReadLine());
-        Console.Write("Введите новый окрас собак: ");
+        Console.WriteLine("Введите породу для выборки: ");
+        string viborbreed = Console.ReadLine();
+        Console.WriteLine("Введите год рождения для выборки: ");
+        int viborYear = int.Parse(Console.ReadLine());
+        Console.WriteLine("Введите новый окрас: ");
         string newcolor = Console.ReadLine();
-        foreach (var dog in dogs)
+        Updatecolor(dogs, viborbreed, viborYear, newcolor);
+        Console.WriteLine("Обновленные данные:");
+        foreach (Dog dog in dogs)
         {
-            if (dog.Poroda == poroda1 && dog.Year == year1)
+            Console.WriteLine(dog);
+        }
+    }
+    private static void Updatecolor(Dog[] dogs, string breed, int year, string newcolor)
+    {
+        foreach (Dog dog in dogs)
+        {
+            if (dog.vibor(breed, year))
             {
-                dog.Color = newcolor;
+                dog.SetColor(newcolor);
             }
         }
     }
-    public static void vivod(List<dog> dogs)
+}
+class Dog
+{
+    private int Year;
+    private string breed;
+    private string color;
+    private string gender;
+    private string name;
+    public Dog(int Year, string breed, string color, string gender, string name)
     {
-        foreach (var dog in dogs)
-        {
-            Console.WriteLine($"{dog.Name} породы {dog.Poroda} {dog.Year} года рождения сменил цвет на {dog.Color}");
-        }
+        this.Year = Year;
+        this.breed = breed;
+        this.color = color;
+        this.gender = gender;
+        this.name = name;
+    }
+    public bool vibor(string breed1, int year1)
+    {
+        return breed == breed1 && Year == year1;
+    }
+    public void SetColor(string newcolor)
+    {
+        color = newcolor;
+    }
+    public override string ToString()
+    {
+        return $"{name} породы {breed} {Year} года рождения сменил окрас на {color}";
     }
 }
