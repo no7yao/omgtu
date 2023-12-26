@@ -1,39 +1,72 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-class Produkt
+class Ceh
 {
     public string Name { get; set; }
     public int Year { get; set; }
     public int Obiem { get; set; }
 }
-class program
+
+class Ceh1
+{
+    private Ceh[] cehs;
+    private int cehcnt;
+
+    public Ceh1(int count)
+    {
+        cehs = new Ceh[count];
+        cehcnt = 0;
+    }
+
+    public void AddCeh(string name, int year, int obiem)
+    {
+        cehs[cehcnt] = new Ceh { Name = name, Year = year, Obiem = obiem };
+        cehcnt++;
+    }
+
+    public void vesobiem()
+    {
+        var vesobiem1 = cehs
+            .GroupBy(w => w.Name)
+            .Select(g => new
+            {
+                Ceh = g.Key,
+                vesobiem11 = g.Sum(w => w.Obiem)
+            });
+
+        foreach (var item in vesobiem1)
+        {
+            Console.WriteLine($"Цех: {item.Ceh}, общий объем: {item.vesobiem11}");
+        }
+    }
+
+    public void Intensity()
+    {
+        var intensity11 = cehs
+            .GroupBy(w => w.Year)
+            .Select(g => new
+            {
+                Year = g.Key,
+                Intensity1 = g.Sum(w => w.Obiem) / 365.0
+            });
+
+        foreach (var item in intensity11)
+        {
+            Console.WriteLine($"Год: {item.Year}, интенсивность: {item.Intensity1}");
+        }
+    }
+}
+
+class Program
 {
     static void Main()
     {
-        List<Produkt> produkts = new List<Produkt>
-        {
-            new Produkt { Name = "Цех1", Year = 2005, Obiem = 200 },
-            new Produkt { Name = "Цех2", Year = 2006, Obiem = 237 },
-            new Produkt { Name = "Цех3", Year = 2001, Obiem = 333 },
-            new Produkt { Name = "Цех1", Year = 2003, Obiem = 208 },
-            new Produkt { Name = "Цех1", Year = 2000, Obiem = 209 },
-            new Produkt { Name = "Цех1", Year = 2009, Obiem = 203 }
-        };
-        var vesobiem = produkts
-            .GroupBy(p => p.Name)
-            .Select(g => new { Ceh = g.Key, Vesobiem1 = g.Sum(p => p.Obiem) });
-        foreach (var item in vesobiem)
-        {
-            Console.WriteLine($"Цех: {item.Ceh}, общий объем: {item.Vesobiem1}");
-            var intensivnost = produkts
-                .Where(p => p.Name == item.Ceh)
-                .GroupBy(p => p.Year)
-                .Select(g => new { Year = g.Key, Intensivnost1 = g.Sum(p => p.Obiem) / 365.0 });
-            foreach (var intensivnost1 in intensivnost)
-            {
-                Console.WriteLine($"Год: {intensivnost1.Year}, интенсивность производства: {intensivnost1.Intensivnost1}");
-            }
-        }
+        Ceh1 stats = new Ceh1(3);
+        stats.AddCeh("Цех1", 2000, 32);
+        stats.AddCeh("Цех2", 2000, 31);
+        stats.AddCeh("Цех1", 2001, 33);
+
+        stats.vesobiem();
+        stats.Intensity();
     }
 }
