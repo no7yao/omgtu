@@ -1,126 +1,69 @@
 using System;
-class Program
+using System.Collections.Generic;
+public class Auditorium
 {
-    static void Main()
-    {
-        Menu menu = new Menu();
-        menu.DispMenu();
-    }
+    public int Floor { get; set; }
+    public int Number { get; set; }
+    public int Seats { get; set; }
+    public bool HasProjector { get; set; }
+    public bool HasComputers { get; set; }
 }
-class Menu
+public class Program
 {
-  public void DispMenu()
-  {
-    bool exit  = false;
-    AudDatabase database = new AudDatabase();
-    while (!exit)
-    {
-        Console.WriteLine("Меню:");
-        Console.WriteLine("1. Создание базы данных");
-        Console.WriteLine("2. Добавление в базу");
-        Console.WriteLine("3. Изменение данных аудитории по номеру");
-        Console.WriteLine("4. Выборка аудитории с кол-вом посадочных мест >= заданному");
-        Console.WriteLine("5. Выборка аудиторий с проектором");
-        Console.WriteLine("6. Выборка аудиторий с компьютерами");
-        Console.WriteLine("7. Выборка аудиторий по номеру этажа");
-        Console.WriteLine("8. Вывод всех данных по аудиториям");
-        Console.WriteLine("9. Выход");
-        string input = Console.ReadLine();
-        switch (input)
-        {
-            case "1":
-                database.CreateDatabase();
-                break;
-            case "2":
-                database.AddDatabase();
-                break;
-            case "3":
-                database.UpdAudData();
-                break;
-            case "4":
-                database.FilterMesto();
-                break;
-            case "5":
-                database.FilterProektor();
-                break;
-            case "6":
-                database.FilterComp();
-                break;
-            case "7":
-                database.FilterEtazh();
-                break;
-            case "8":
-                database.AllData();
-                break;
-            case "9":
-                exit = true;
-                break;
-            default:
-                Console.WriteLine("Некорректный ввод данных");
-                break;
-        }
-    }
-  }
-}
-class AudDatabase
-{
-    public List<Aud> auditoriums = new List<Aud>();
+    private List<Auditorium> auditoriums = new List<Auditorium>();
     public void CreateDatabase()
     {
-        Console.WriteLine("Введите количество аудиторий: ");
-        int n = Convert.ToInt32(Console.ReadLine())
-        for (int i=0; i<n; i++)
+        Console.WriteLine("Введите количество аудиторий:");
+        int count = int.Parse(Console.ReadLine());
+        for (int i = 0; i < count; i++)
         {
-            Console.WriteLine($"Введите информацию об аудитории {i+1}:");
-            Console.WriteLine("Номер аудитории: ");
-            string nom  = Console.ReadLine();
-            Console.WriteLine("Номер этажа: ");
-            int etzh = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Количество мест: ");
-            mest = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Наличие компьютеров (t/f): ");
-            bool cmp = bool.Parse(Console.ReadLine());
-            Console.WriteLine("Наличие проектора (t/f): ");
-            bool prj = bool.Parse(Console.ReadLine());
-            Aud newAud = new Aud
+            Console.WriteLine($"Введите данные для аудитории {i + 1}:");
+            Console.WriteLine("Номер этажа:");
+            int floor = int.Parse(Console.ReadLine());
+            Console.WriteLine("Номер аудитории:");
+            int number = int.Parse(Console.ReadLine());
+            Console.WriteLine("Количество мест:");
+            int seats = int.Parse(Console.ReadLine());
+            Console.WriteLine("Наличие проектора (true/false):");
+            bool hasProjector = bool.Parse(Console.ReadLine());
+            Console.WriteLine("Наличие компьютеров (true/false):");
+            bool hasComputers = bool.Parse(Console.ReadLine());
+            auditoriums.Add(new Auditorium
             {
-                Nom = nom,
-                Etzh = etzh,
-                Mest = mest,
-                Cmp = cmp,
-                Prj = Prj
-            };
-            auditoriums.Add(newAud);
-            Console.WriteLine("Аудитория добавлена")
+            Floor = floor,
+            Number = number,
+            Seats = seats,
+            HasProjector = hasProjector,
+            HasComputers = hasComputers
+            });
         }
+        Console.WriteLine("База данных аудиторий создана.");
     }
-    public void AddDatabase()
+    public void AddToDatabase()
     {
-        Console.WriteLine($"Введите информацию об аудитории:");
-        Console.WriteLine("Номер аудитории: ");
-        string nom  = Console.ReadLine();
-        Console.WriteLine("Номер этажа: ");
-        int etzh = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Количество мест: ");
-        mest = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Наличие компьютеров (t/f): ");
-        bool cmp = bool.Parse(Console.ReadLine());
-        Console.WriteLine("Наличие проектора (t/f): ");
-        bool prj = bool.Parse(Console.ReadLine());
-        Aud newAud = new Aud
+        Console.WriteLine("Введите номер этажа:");
+        int floor = int.Parse(Console.ReadLine());
+        Console.WriteLine("Введите номер аудитории:");
+        int number = int.Parse(Console.ReadLine());
+        Console.WriteLine("Введите количество мест:");
+        int seats = int.Parse(Console.ReadLine());
+        Console.WriteLine("Наличие проектора (true/false):");
+        bool hasProjector = bool.Parse(Console.ReadLine());
+        Console.WriteLine("Наличие компьютеров (true/false):");
+        bool hasComputers = bool.Parse(Console.ReadLine());
+        auditoriums.Add(new Auditorium
         {
-            Nom = nom,
-            Etzh = etzh,
-            Mest = mest,
-            Cmp = cmp,
-            Prj = Prj
-        };
-            auditoriums.Add(newAud);
-            Console.WriteLine("Аудитория добавлена")
+            Floor = floor,
+            Number = number,
+            Seats = seats,
+            HasProjector = hasProjector,
+            HasComputers = hasComputers
+        });
+        Console.WriteLine("Новая аудитория добавлена.");
     }
     public void UpdAudData(string auditoriumNumber)
     {
-        Aud auditoriumupd = auditoriums.Find(a => a.Nom == auditoriumNom);
+    Auditorium auditoriumupd = menu.auditoriums.Find(a => a.Number == auditoriumNumber);
         if (auditoriumupd != null)
         {
             Console.WriteLine("Введите новую информацию об аудитории:");
@@ -135,11 +78,11 @@ class AudDatabase
             Console.Write("Наличие проектора (true/false): ");
             bool newHasProjector = bool.Parse(Console.ReadLine());
 
-            auditoriumupd.Nom = newnom;
-            auditoriumupd.Etzh = newetzh;
-            auditoriumupd.Mest = newmest;
-            auditoriumupd.Comp = newcomp;
-            auditoriumupd.Prj = newprj;
+            auditoriumupd.Number = newNumber;
+            auditoriumupd.floor = newFloor;
+            auditoriumupd.Seats = newSeats;
+            auditoriumupd.Comp = newHasComputers;
+            auditoriumupd.Prj = newHasProjector;
 
             Console.WriteLine("Информация об аудитории успешно обновлена.");
         }
@@ -147,84 +90,105 @@ class AudDatabase
         {
             Console.WriteLine("Аудитория с указанным номером не найдена.");
         }
-    }
-    public void FilterMesto(int nuzhmest)
+    public List<Auditorium> GetAuditoriumsBySeats(int minSeats)
     {
-        List<Aud> filterAud = auditoriums.FindAll(a=> a.Mest >= nuzhmest);
-        if (filterAud.Count > 0)
+        List<Auditorium> result = new List<Auditorium>();
+        foreach (var auditorium in auditoriums)
         {
-            Console.WriteLine("Список найденых аудиторий: ")
-            foreach (var aud in filterAud)
+            if (auditorium.Seats >= minSeats)
             {
-                Console.WriteLine($"Номер: {aud.Nom}, количество мест: {aud.Mest}");
+                result.Add(auditorium);
             }
         }
-        else
-        {
-            Console.WriteLine("Аудитории с ноужным количеством мест не найдены")
-        }
+        return result;
     }
-    public void FilterProektor()
+    public List<Auditorium> GetAuditoriumsByFloor(int floor)
     {
-        List<Aud> auditoriumsPrj = auditoriums.FindAll(a => a.Prj);
-        if (auditoriumsPrj.Count > 0)
+        List<Auditorium> result = new List<Auditorium>();
+        foreach (var auditorium in auditoriums)
         {
-            Console.WriteLine("Аудитории с проектором:");
-            foreach (var aud in auditoriumsPrj)
+            if (auditorium.Floor == floor)
             {
-                Console.WriteLine($"Номер: {aud.Nom}");
+                result.Add(auditorium);
             }
         }
-        else
+        return result;
+    }
+    public void PrintAllAuditoriums()
+    {
+        foreach (var auditorium in auditoriums)
         {
-            Console.WriteLine("Аудитории с проектором не найдены.");
+            Console.WriteLine($"Этаж: {auditorium.Floor}, Номер: {auditorium.Number}, Мест: {auditorium.Seats}, Проектор: {auditorium.HasProjector}, Компьютеры: {auditorium.HasComputers}");
         }
     }
-    public void FilterComp()
+}
+class Menu
+{
+    static void Main(string[] args)
     {
-        List<Aud> auditoriumsComp = auditoriums.FindAll(a => a.Cmp);
-        if (auditoriumsComp.Count > 0)
+        Program program = new Program();
+        int choice;
+        do
         {
-            Console.WriteLine("Аудитории с компьютерами:");
-            foreach (var aud in auditoriumsComp)
+            Console.WriteLine("1. Создание базы данных");
+            Console.WriteLine("2. Добавление в базу");
+            Console.WriteLine("3. Изменение данных аудитории по заданному номеру");
+            Console.WriteLine("4. Выборка аудиторий с количеством посадочных мест >= заданному");
+            Console.WriteLine("5. Выборка аудиторий по номеру этажа");
+            Console.WriteLine("6. Вывод всех данных по аудиториям");
+            Console.WriteLine("7. Выход");
+            choice = int.Parse(Console.ReadLine());
+            switch (choice)
             {
-                Console.WriteLine($"Номер: {aud.Nom}");
+                case 1:
+                    program.CreateDatabase();
+                    break;
+                case 2:
+                    program.AddToDatabase();
+                    break;
+                case 3:
+                    Console.WriteLine("Введите номер аудитории для изменения данных:");
+                    int auditoriumNumber = int.Parse(Console.ReadLine());
+                    Auditorium auditoriumToUpdate = menu.auditoriums.Find(a => a.Number == auditoriumNumber);
+                    if (auditoriumToUpdate != null)
+                    {
+                        program.UpdateAuditorium(auditoriumToUpdate, 100, true, false);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Аудитория с указанным номером не найдена.");
+                    }
+                    break;
+                case 4:
+                    Console.WriteLine("Введите минимальное количество мест:");
+                    int minSeats = int.Parse(Console.ReadLine());
+                    var auditoriumsBySeats = program.GetAuditoriumsBySeats(minSeats);
+                    Console.WriteLine("Аудитории с количеством посадочных мест >= " + minSeats + ":");
+                    foreach (var auditorium in auditoriumsBySeats)
+                    {
+                        Console.WriteLine($"Этаж: {auditorium.Floor}, Номер: {auditorium.Number}");
+                    }
+                    break;
+                case 5:
+                    Console.WriteLine("Введите номер этажа:");
+                    int floorNumber = int.Parse(Console.ReadLine());
+                    var auditoriumsByFloor = program.GetAuditoriumsByFloor(floorNumber);
+                    Console.WriteLine($"Аудитории на этаже {floorNumber}:");
+                    foreach (var auditorium in auditoriumsByFloor)
+                    {
+                        Console.WriteLine($"Номер: {auditorium.Number}, Количество мест: {auditorium.Seats}, Проектор: {auditorium.HasProjector}, Компьютеры: {auditorium.HasComputers}");
+                    }
+                    break;
+                case 6:
+                    program.PrintAllAuditoriums();
+                    break;
+                case 7:
+                    Console.WriteLine("Выход из программы.");
+                    break;
+                default:
+                    Console.WriteLine("Некорректный ввод.");
+                    break;
             }
-        }
-        else
-        {
-            Console.WriteLine("Аудитории с компьютерами не найдены.");
-        }
-    }
-    public void FilterEtazh(int etazh)
-    {
-        List<Auditorium> auditoriumsOnFloor = auditoriums.FindAll(a => a.Floor == floorNumber);
-        if (auditoriumsOnFloor.Count > 0)
-        {
-            Console.WriteLine($"Аудитории на этаже {floorNumber}:");
-            foreach (var auditorium in auditoriumsOnFloor)
-            {
-                Console.WriteLine($"Номер: {auditorium.Number}");
-            }
-        }
-        else
-        {
-            Console.WriteLine($"Аудитории на этаже {floorNumber} не найдены.");
-        }
-    }
-    public void AllData()
-    {
-        if (auditoriums.Count > 0)
-        {
-            Console.WriteLine("Информация обо всех аудиториях:");
-            foreach (var aud in auditoriums)
-            {
-                Console.WriteLine($"Номер: {auditorium.Nom}, Этаж: {auditorium.Etzh}, Количество мест: {auditorium.Mest}, Проектор: {auditorium.HasPrj}, Компьютеры: {auditorium.Comp}");
-            }
-        }
-        else
-        {
-            Console.WriteLine("База данных пуста. Нет информации об аудиториях.");
-        }
+        } while (choice != 7);
     }
 }
