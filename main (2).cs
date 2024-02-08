@@ -212,12 +212,19 @@ class AudDatabase
             Console.WriteLine($"Аудитории на этаже {floorNumber} не найдены.");
         }
     }
-}
-
-}
-
-}
-
-}
-
+    public void AllData()
+    {
+        if (auditoriums.Count > 0)
+        {
+            Console.WriteLine("Информация обо всех аудиториях:");
+            foreach (var aud in auditoriums)
+            {
+                Console.WriteLine($"Номер: {auditorium.Nom}, Этаж: {auditorium.Etzh}, Количество мест: {auditorium.Mest}, Проектор: {auditorium.HasPrj}, Компьютеры: {auditorium.Comp}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("База данных пуста. Нет информации об аудиториях.");
+        }
+    }
 }
